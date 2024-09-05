@@ -28,3 +28,18 @@ body{
 .menu li a:hover{
     background: #ef8354;
 }
+
+.menu1{
+    list-style: none;
+    padding: 5;
+    background: #2c2c2c;
+    width: 100%;
+    max-width: 3000px;
+    margin: auto;
+}
+.menu1 li{
+    display: inline-block;
+    text-align: center;
+    color: white;
+    padding: 15px;
+}

@@ -21,11 +21,12 @@ crud_estudiante.cud = (req,res)=>{
     const apellidos = req.body.txt_apellidos;
     const direccion = req.body.txt_direccion;
     const telefono = req.body.txt_telefono;
+    const correo_electronico = req.body.txt_correo_electronico;
     const id_tipo_sangre = req.body.txt_id_tipo_sangre;
     const fecha_nacimiento = req.body.txt_fn;
   
     if (btn_crear){
-        conectar.query('insert into estudiantes SET ?',{carne:carne,nombres:nombres, apellidos:apellidos,direccion:direccion,telefono:telefono,id_tipo_sangre:id_tipo_sangre,fecha_nacimiento:fecha_nacimiento}, (error, results)=>{
+        conectar.query('insert into estudiantes SET ?',{carne:carne,nombres:nombres, apellidos:apellidos,direccion:direccion,telefono:telefono,correo_electronico:correo_electronico,id_tipo_sangre:id_tipo_sangre,fecha_nacimiento:fecha_nacimiento}, (error, results)=>{
             if(error){
                 console.log(error);
             }else{
@@ -36,7 +37,7 @@ crud_estudiante.cud = (req,res)=>{
        
     }
     if (btn_actualizar){
-        conectar.query('update estudiantes SET ? where id_estudiantes=?',[{carne:carne,nombres:nombres, apellidos:apellidos,direccion:direccion,telefono:telefono,id_tipo_sangre:id_tipo_sangre,fecha_nacimiento:fecha_nacimiento},id], (error, results)=>{
+        conectar.query('update estudiantes SET ? where id_estudiantes=?',[{carne:carne,nombres:nombres, apellidos:apellidos,direccion:direccion,telefono:telefono,correo_electronico:correo_electronico,id_tipo_sangre:id_tipo_sangre,fecha_nacimiento:fecha_nacimiento},id], (error, results)=>{
             if(error){
                 console.log(error);
             }else{
