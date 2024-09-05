@@ -1,0 +1,21 @@
+CREATE TABLE `db_empresa`.`tipos_sangre` (
+  `id_tipos_sangre` INT NOT NULL,
+  `nombre` VARCHAR(10) NULL,
+  PRIMARY KEY (`id_tipos_sangre`));
+
+CREATE TABLE `db_empresa`.`estudiantes` (
+  `id_estudiantes` INT NOT NULL AUTO_INCREMENT,
+  `carne` VARCHAR(25) NOT NULL,
+  `nombres` VARCHAR(45) NOT NULL,
+  `apellidos` VARCHAR(45) NOT NULL,
+  `direccion` VARCHAR(80) NOT NULL,
+  `telefono` VARCHAR(10) NULL,
+  `id_tipo_sangre` INT NOT NULL,
+  `fecha_nacimiento` DATE NULL,
+  PRIMARY KEY (`id_estudiantes`),
+  INDEX `id_tipo_sangre_sangre_idx` (`id_tipo_sangre` ASC) VISIBLE,
+  CONSTRAINT `id_tipo_sangre_sangre`
+    FOREIGN KEY (`id_tipo_sangre`)
+    REFERENCES `db_empresa`.`tipo_sangre` (`id_tipo_sangre`)
+    ON DELETE NO ACTION
+    ON UPDATE CASCADE);
