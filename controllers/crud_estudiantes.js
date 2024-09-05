@@ -48,7 +48,7 @@ crud_estudiante.cud = (req,res)=>{
        
     }
     if (btn_borrar){
-        conectar.query('delete from estudiantes where id_estudiantes=?',[id], (error, results)=>{
+        conectar.query('delete from estudiantes where carne=?',[carne], (error, results)=>{
             if(error){
                 console.log(error);
             }else{

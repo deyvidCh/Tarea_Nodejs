@@ -8,6 +8,7 @@ app_e.use(express.static('./controllers'))
 app_e.use(express.static('./models'))
 app_e.use(express.static('./views'))
 app_e.use(express.static('./public'))
+app_e.use(express.static('./public'))
 app_e.set('view engine','ejs')
 
 app_e.listen('5000',function(){ 

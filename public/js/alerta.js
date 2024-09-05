@@ -1,5 +1,5 @@
 function confirmDelete() {
-        var respuesta = confirm("¿Esta seguro que deseas eliminar al estudiante?")
+        var respuesta = confirm("¿Estas seguro que deseas eliminar al estudiante?")
         if (respuesta == true)
         {
             return true;
@@ -9,3 +9,4 @@ function confirmDelete() {
             return false;
         }
 }
+
