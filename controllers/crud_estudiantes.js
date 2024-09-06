@@ -1,17 +1,31 @@
 import { conectar } from "../models/db_conectar.js";
 
-var crud_estudiante =({});
-crud_estudiante.leer = (req,res)=>{
-    conectar.query('select * FROM estudiantes;',(error,results)=>{
-        if (error){
-            throw error;
+var crud_estudiante = ({});
 
-    }else{
-    res.render('estudiantes/index',{resultado:results})
-    }
-})
+crud_estudiante.leer = (req, res) => {
+    conectar.query(`
+        SELECT e.*, ts.nombre AS tipo_sangre
+        FROM estudiantes e
+        JOIN tipos_sangre ts ON e.id_tipo_sangre = ts.id_tipo_sangre;
+    `, (error, resultsEstudiantes) => {
+        if (error) {
+            throw error;
+        } else {
+            conectar.query('SELECT id_tipo_sangre, nombre FROM tipos_sangre;', (error, resultsTiposSangre) => {
+                if (error) {
+                    throw error;
+                } else {
+                    res.render('estudiantes/index', {
+                        resultado: resultsEstudiantes, 
+                        tiposDeSangre: resultsTiposSangre 
+                    });
+                }
+            });
+        }
+    });
 };
-crud_estudiante.cud = (req,res)=>{
+
+crud_estudiante.cud = (req, res) => {
     const btn_crear = req.body.btn_crear;
     const btn_actualizar = req.body.btn_actualizar;
     const btn_borrar = req.body.btn_borrar;
@@ -25,6 +39,10 @@ crud_estudiante.cud = (req,res)=>{
     const id_tipo_sangre = req.body.txt_id_tipo_sangre;
     const fecha_nacimiento = req.body.txt_fn;
   
+    if (!id_tipo_sangre || isNaN(id_tipo_sangre)) {
+        return res.status(400).send("Por favor selecciona un tipo de sangre.");
+    }
+
     if (btn_crear){
         conectar.query('insert into estudiantes SET ?',{carne:carne,nombres:nombres, apellidos:apellidos,direccion:direccion,telefono:telefono,correo_electronico:correo_electronico,id_tipo_sangre:id_tipo_sangre,fecha_nacimiento:fecha_nacimiento}, (error, results)=>{
             if(error){
@@ -37,7 +55,7 @@ crud_estudiante.cud = (req,res)=>{
        
     }
     if (btn_actualizar){
-        conectar.query('update estudiantes SET ? where id_estudiantes=?',[{carne:carne,nombres:nombres, apellidos:apellidos,direccion:direccion,telefono:telefono,correo_electronico:correo_electronico,id_tipo_sangre:id_tipo_sangre,fecha_nacimiento:fecha_nacimiento},id], (error, results)=>{
+        conectar.query('update estudiantes SET ? where carne=?',[{carne:carne,nombres:nombres, apellidos:apellidos,direccion:direccion,telefono:telefono,correo_electronico:correo_electronico,id_tipo_sangre:id_tipo_sangre,fecha_nacimiento:fecha_nacimiento},carne], (error, results)=>{
             if(error){
                 console.log(error);
             }else{
@@ -59,4 +77,4 @@ crud_estudiante.cud = (req,res)=>{
        
     }
 };
-export {crud_estudiante}
+export {crud_estudiante}    
